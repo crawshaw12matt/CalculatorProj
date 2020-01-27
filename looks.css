@@ -19,29 +19,49 @@ h3 {
 
 .calculator {
     display: block;
-    width: 40%;
+    width: 60%;
     height: 500px;
     margin: 50px auto;
     border: 5px solid black;
-    background-color: GhostWhite;
+    background-color: lightgray;
+    font-size: 3rem;
 }
 
 .display {
-
+    display: block;
+    width: 100%;
+    height: 20%;
+    text-align: right;
+    color: black;
+    background-color: ghostwhite;
+    font-size: 5rem;
 }
 
 .numbers {
+    display: inline-flex;
+    flex-flow: row wrap;
+    height: 40%;
+}
 
+.number {
+    border: 1px solid black;
+    margin: 2px 2px;
+    height: 25%;
+    width: auto;
 }
 
 .number-functions {
-
+    display: inline;
 }
 
 .uses {
-
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .equals {
-
+    display: block;
+    background-color: lightskyblue;
+    text-align: center;
 }
