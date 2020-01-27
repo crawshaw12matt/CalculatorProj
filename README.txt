@@ -1,0 +1,1 @@
+This is my first solo attempt at a project. The idea is to create a functional calculator similar to the default calculator on Windows.
