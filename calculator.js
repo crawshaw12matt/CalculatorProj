@@ -1,6 +1,7 @@
 // On Startup
-let currentResult = ['0'];
-let saveNumber = [];
+let currentResult = [0];
+let saveNumber = [0];
+let currentOperator = [0];
 
 function updateDisplay(value){
     document.getElementById('result').innerHTML = value;
@@ -10,20 +11,41 @@ window.onload = function(){
     updateDisplay(currentResult.join(''));
 };
 
-// Handling of Buttons
-document.getElementsByClassName("button").onclick = function(){
-    //document.getElementById('7').style.backgroundColor = "Gainsboro";
-    updateDisplay(5);
-    // If the current displayed value is 0, just set the currentResult to the pressed number
-    //if (currentResult[0] == 0) {
-    //    currentResult[0] = pressedNumber.innerHTML
-    //} else {
-    //    currentResult.push(pressedNumber.innerHTML)
-    //}
-    //document.getElementById('7').style.backgroundColor = "lightgray";
-    //updateDisplay(currentResult.join(''))
-};
+// Clear Everything Functionality
+const CE = document.getElementById("clear-everything");
 
-// Handling of "Number-functions"
+CE.addEventListener('mouseenter', function(){
+    CE.style.opacity = 0.75;
+})
 
-// Handling of "Uses" and "Equals"
+CE.addEventListener('mouseleave', function(){
+    CE.style.opacity = 1;
+})
+
+CE.onclick = function(){
+    currentResult = [0];
+    saveNumber = [0];
+    currentOperator = [0];
+    updateDisplay(currentResult.join(''));
+}
+
+//  Number Button Listeners
+for (var i = 0; i < 10; i++) {
+
+    const button = document.getElementById(i);
+
+    button.addEventListener('mouseenter', function(){
+        button.style.opacity = 0.75;
+    })
+    button.addEventListener('mouseleave', function(){
+        button.style.opacity = 1;
+    })
+    button.addEventListener('click', function(){
+        if (currentResult[0] == 0) {
+            currentResult[0] = button.innerHTML;
+        } else {
+            currentResult.push(button.innerHTML);
+        }
+        updateDisplay(currentResult.join(''));
+    })
+}
