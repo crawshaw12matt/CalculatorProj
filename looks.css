@@ -1,67 +1,77 @@
+/* --- General Rules --- */
 html {
     font-size: 16px;
+    text-align: center;
+    background-color: ghostwhite;
 }
 
 h1, h2 {
     font-family: Georgia, serif;
-    text-align: center;
 }
 
 h2 {
     font-size: 0.75rem;
 }
 
-h3 {
-    font-size: 0.5rem;
-    font-family: Georgia, serif;
-    text-align: left;
-}
-
+/* --- Overall Calculator --- */
 .calculator {
-    display: block;
+    /* General Calc Looks */
     width: 60%;
+    max-width: 400px;
     height: 500px;
     margin: 50px auto;
     border: 5px solid black;
-    background-color: lightgray;
-    font-size: 3rem;
+    background-color: lightslategray;
+    font-size: 2.5rem;
+    /* Flexbox Properites */
+    display: inline-flex;
+    align-content: space-between;
+    flex-flow: column wrap;
+    overflow: hidden;
 }
 
+/* --- Four Blocks within the Calculator --- */
 .display {
-    display: block;
     width: 100%;
     height: 20%;
     text-align: right;
     color: black;
     background-color: ghostwhite;
     font-size: 5rem;
+    top: 0;
 }
 
 .numbers {
+    height: 40%;
+    width: 100%;
     display: inline-flex;
     flex-flow: row wrap;
-    height: 40%;
+    justify-content: space-evenly;
 }
 
-.number {
-    border: 1px solid black;
-    margin: 2px 2px;
-    height: 25%;
-    width: auto;
-}
-
-.number-functions {
-    display: inline;
-}
-
-.uses {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+.functions {
+    height: 30%;
+    width: 100%;
+    display: inline-flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
 }
 
 .equals {
-    display: block;
     background-color: lightskyblue;
     text-align: center;
+    height: 10%;
+    width: 100%;
+    bottom: 0;
+}
+
+/* --- Individual Buttons --- */
+.button {
+    height: 40px;
+    width: 60px;
+    margin: 2px;
+    background-color: lightgray;
+    border: 1px solid black;
+    margin: 2px;
+
 }
