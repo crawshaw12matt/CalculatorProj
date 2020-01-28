@@ -29,22 +29,57 @@ CE.onclick = function(){
     updateDisplay(currentResult.join(''));
 }
 
+// Clear currentResult Functionality
+const C = document.getElementById('clear');
+
+C.addEventListener('mouseenter', function(){
+    C.style.opacity = 0.75;
+})
+
+C.addEventListener('mouseleave', function(){
+    C.style.opacity = 1;
+})
+
+C.onclick = function(){
+    currentResult = [0];
+    updateDisplay(currentResult.join(''));
+}
+
+// Backspace Functionality
+const backspace = document.getElementById('backspace');
+
+backspace.addEventListener('mouseenter', function(){
+    backspace.style.opacity = 0.75;
+})
+
+backspace.addEventListener('mouseleave', function(){
+    backspace.style.opacity = 1;
+})
+
+backspace.onclick = function(){
+    currentResult.pop();
+    if (currentResult[0] == undefined) {
+        currentResult[0] = 0;
+    }
+    updateDisplay(currentResult.join(''));
+}
+
 //  Number Button Listeners
 for (var i = 0; i < 10; i++) {
 
-    const button = document.getElementById(i);
+    const number = document.getElementById(i);
 
-    button.addEventListener('mouseenter', function(){
-        button.style.opacity = 0.75;
+    number.addEventListener('mouseenter', function(){
+        number.style.opacity = 0.75;
     })
-    button.addEventListener('mouseleave', function(){
-        button.style.opacity = 1;
+    number.addEventListener('mouseleave', function(){
+        number.style.opacity = 1;
     })
-    button.addEventListener('click', function(){
+    number.addEventListener('click', function(){
         if (currentResult[0] == 0) {
-            currentResult[0] = button.innerHTML;
+            currentResult[0] = number.innerHTML;
         } else {
-            currentResult.push(button.innerHTML);
+            currentResult.push(number.innerHTML);
         }
         updateDisplay(currentResult.join(''));
     })
