@@ -3,13 +3,19 @@ let currentResult = [0];
 let saveNumber = [0];
 let currentOperator = [0];
 
+window.onload = function(){
+    updateDisplay(currentResult.join(''));
+};
+
+// -------------------- CODING FUNCTIONS ------------------------------
 function updateDisplay(value){
     document.getElementById('result').innerHTML = value;
 }
 
-window.onload = function(){
-    updateDisplay(currentResult.join(''));
-};
+function resetValues(){
+    currentResult = [0];
+    saveNumber = [0];
+}
 
 // ---------------------- ALL BUTTONS ----------------------------------
 document.querySelectorAll('.button').forEach(item => {
@@ -29,6 +35,9 @@ for (let i = 0; i < 10; i++) {
 
     number.addEventListener('click', function(){
         if (currentResult[0] == 0) {
+            currentResult[0] = number.innerHTML;
+        } else if (currentResult[0] == '=') {
+            resetValues();
             currentResult[0] = number.innerHTML;
         } else {
             currentResult.push(number.innerHTML);
@@ -62,6 +71,9 @@ for (let j = 10; j < 18; j++) {
         const operator = document.getElementById(j);
 
         operator.addEventListener('click', function(){
+            if (currentResult[0] == '=') {
+                currentResult.splice(0, 1);
+            }
             saveNumber = currentResult;
             currentResult = [0];
             updateDisplay(operator.innerHTML);
@@ -144,32 +156,35 @@ equalsButton.onclick = function() {
     if (num1) {
         if (num2) {
             if (mathSign) {
+                resetValues();
+                currentResult[0] = '=';
                 switch (mathSign) {
                     case '+':
                         let resultOfAdd = num1 + num2;
-                        updateDisplay(resultOfAdd);
+                        currentResult[1] = resultOfAdd;
                         break;
                     case '-':
                         let resultOfSub = num2 - num1;
-                        updateDisplay(resultOfSub);
+                        currentResult[1] = resultOfSub;
                         break;
                     case '*':
                         let resultOfMult = num1 * num2;
-                        updateDisplay(resultOfMult);
+                        currentResult[1] = resultOfMult;
                         break;
                     case '/':
                         let resultOfDiv = num2 / num1;
-                        updateDisplay(resultOfDiv);
+                        currentResult[1] = resultOfDiv;
                         break;
                     case '^':
                         let resultOfExp = Math.pow(num2, num1);
-                        updateDisplay(resultOfExp);
+                        currentResult[1] = resultOfExp;
                         break;
                     case '%':
                         let resultOfMod = num2 % num1;
-                        updateDisplay(resultOfMod);
+                        currentResult[1] = resultOfMod;
                         break;
                 }
+                updateDisplay(currentResult[1]);
             } else {
                 updateDisplay('Error with operator');
             }
@@ -188,8 +203,7 @@ equalsButton.onclick = function() {
 const CE = document.getElementById("clear-everything");
 
 CE.onclick = function(){
-    currentResult = [0];
-    saveNumber = [0];
+    resetValues();
     currentOperator = [0];
     updateDisplay(currentResult.join(''));
 }
