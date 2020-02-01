@@ -51,7 +51,10 @@ for (let i = 0; i < 10; i++) {
 const switcher = document.getElementById('switch');
 
 switcher.onclick = function() {
-    currentResult.unshift('-');
+    if (currentResult[0] == '=') {
+        currentResult.shift();
+    }
+    currentResult[0] = currentResult[0] * -1;
     updateDisplay(currentResult.join(''));
 }
 
@@ -59,7 +62,9 @@ switcher.onclick = function() {
 const deci = document.getElementById('decimal');
 
 deci.onclick = function() {
-    currentResult.push('.');
+    if (currentResult.includes('.') == false) {
+        currentResult.push('.');
+    }
     updateDisplay(currentResult.join(''));
 }
 
@@ -120,11 +125,12 @@ expButton.onclick = function() {
 const rootButton = document.getElementById('15');
 
 rootButton.onclick = function() {
-    let squared = parseFloat(currentResult.join(''));
-    let rooted = Math.sqrt(squared);
-    currentResult.splice(0, currentResult.length - 1);
-    currentResult[0] = rooted;
-    updateDisplay(currentResult.join(''));
+    let numToRoot = parseFloat(currentResult.join(''));
+    let rootedNum = Math.sqrt(numToRoot);
+    resetValues();
+    currentResult[0] = '=';
+    currentResult[1] = rootedNum;
+    updateDisplay(numToRoot);
 }
 
 // Fractionalize
