@@ -1,4 +1,4 @@
-// On Startup
+// --------------------- START UP -------------------------------------
 let currentResult = [0];
 let saveNumber = [0];
 let currentOperator = [0];
@@ -15,6 +15,18 @@ function updateDisplay(value){
 function resetValues(){
     currentResult = [0];
     saveNumber = [0];
+}
+
+function removeEquals(){
+    if (currentResult[0] == '=') {
+        currentResult.shift();
+    }
+}
+
+function setResult(value){
+    resetValues();
+    currentResult[0] = '=';
+    currentResult[1] = value;
 }
 
 // ---------------------- ALL BUTTONS ----------------------------------
@@ -51,9 +63,7 @@ for (let i = 0; i < 10; i++) {
 const switcher = document.getElementById('switch');
 
 switcher.onclick = function() {
-    if (currentResult[0] == '=') {
-        currentResult.shift();
-    }
+    removeEquals();
     currentResult[0] = currentResult[0] * -1;
     updateDisplay(currentResult.join(''));
 }
@@ -70,20 +80,17 @@ deci.onclick = function() {
 
 // --------------------- MATH FUNCTIONS --------------------------------
 // All Operators saveNumber Functionality
-for (let j = 10; j < 18; j++) {
+for (let j = 10; j < 16; j++) {
 
-    if (j !== 16 || j !== 15) {
-        const operator = document.getElementById(j);
+    const operator = document.getElementById(j);
 
-        operator.addEventListener('click', function(){
-            if (currentResult[0] == '=') {
-                currentResult.splice(0, 1);
-            }
-            saveNumber = currentResult;
-            currentResult = [0];
-            updateDisplay(operator.innerHTML);
-        })
-    }
+    operator.addEventListener('click', function(){
+        removeEquals();
+        saveNumber = currentResult;
+        currentResult = [0];
+        updateDisplay(operator.innerHTML);
+    })
+
 }
 
 // Addition
@@ -121,35 +128,37 @@ expButton.onclick = function() {
     currentOperator[0] = '^';
 }
 
-// Root
-const rootButton = document.getElementById('15');
-
-rootButton.onclick = function() {
-    let numToRoot = parseFloat(currentResult.join(''));
-    let rootedNum = Math.sqrt(numToRoot);
-    resetValues();
-    currentResult[0] = '=';
-    currentResult[1] = rootedNum;
-    updateDisplay(numToRoot);
-}
-
-// Fractionalize
-const fractButton = document.getElementById('16');
-
-fractButton.onclick = function() {
-    let denominator = parseFloat(currentResult.join(''));
-    let fract = 1 / denominator;
-    currentResult.splice(0, currentResult.length - 1);
-    currentResult[0] = fract;
-    updateDisplay(currentResult.join(''));
-}
-
 // Modular
-const modButton = document.getElementById('17');
+const modButton = document.getElementById('15');
 
 modButton.onclick = function() {
     currentOperator[0] = '%';
 }
+
+// Root
+const rootButton = document.getElementById('sqRoot');
+
+rootButton.onclick = function() {
+    removeEquals();
+    let numToRoot = parseFloat(currentResult.join(''));
+    let rootedNum = Math.sqrt(numToRoot);
+    resetValues();
+    setResult(rootedNum);
+    updateDisplay(currentResult[1]);
+}
+
+// Fractionalize
+const fractButton = document.getElementById('fractionIt');
+
+fractButton.onclick = function() {
+    removeEquals();
+    let denom = parseFloat(currentResult.join(''));
+    let fract = 1 / denom;
+    resetValues();
+    setResult(fract);
+    updateDisplay(currentResult[1]);
+}
+
 
 // Equals
 
@@ -228,6 +237,8 @@ const backspace = document.getElementById('backspace');
 backspace.onclick = function(){
     currentResult.pop();
     if (currentResult[0] == undefined) {
+        currentResult[0] = 0;
+    } else if (currentResult.length == 1 && currentResult[0] == '='){
         currentResult[0] = 0;
     }
     updateDisplay(currentResult.join(''));
