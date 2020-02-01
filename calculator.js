@@ -171,35 +171,31 @@ equalsButton.onclick = function() {
     if (num1) {
         if (num2) {
             if (mathSign) {
-                resetValues();
-                currentResult[0] = '=';
+                let resultOfCalculation = 0;
                 switch (mathSign) {
                     case '+':
-                        let resultOfAdd = num1 + num2;
-                        currentResult[1] = resultOfAdd;
+                        resultOfCalculation = num1 + num2;
                         break;
                     case '-':
-                        let resultOfSub = num2 - num1;
-                        currentResult[1] = resultOfSub;
+                        resultOfCalculation = num2 - num1;
                         break;
                     case '*':
-                        let resultOfMult = num1 * num2;
-                        currentResult[1] = resultOfMult;
+                        resultOfCalculation = num1 * num2;
                         break;
                     case '/':
-                        let resultOfDiv = num2 / num1;
-                        currentResult[1] = resultOfDiv;
+                        resultOfCalculation = num2 / num1;
                         break;
                     case '^':
-                        let resultOfExp = Math.pow(num2, num1);
-                        currentResult[1] = resultOfExp;
+                        resultOfCalculation = Math.pow(num2, num1);
                         break;
                     case '%':
-                        let resultOfMod = num2 % num1;
-                        currentResult[1] = resultOfMod;
+                        resultOfCalculation = num2 % num1;
                         break;
                 }
+                resetValues();
+                setResult(resultOfCalculation);
                 updateDisplay(currentResult[1]);
+
             } else {
                 updateDisplay('Error with operator');
             }
